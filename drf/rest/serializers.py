@@ -17,7 +17,7 @@ class AdvocateSerializer(ModelSerializer):
     company = CompanySerializer()
     class Meta:
         model = Advocate
-        fields = ['id','username','bio','company']
+        fields = ['id','name','username','bio','company','profile','twitter']
     
 
 

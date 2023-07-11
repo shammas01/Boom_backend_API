@@ -21,7 +21,7 @@ def endpoind(request):
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def advocate_list(request):
     # data = ['shahin','sndeep','shammas']
     #handles GET requests
@@ -53,6 +53,7 @@ class AdvocateDetails(APIView):
             return Advocate.objects.get(username=username)
         except Advocate.DoesNotExist:
             raise JsonResponse('Advocate doesent exist')
+
 
     def get(self, request, username):
         advocate = self.get_object(username)
