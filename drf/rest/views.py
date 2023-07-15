@@ -23,8 +23,6 @@ def endpoind(request):
 @api_view(['GET','POST'])
 # @permission_classes([IsAuthenticated])
 def advocate_list(request):
-    # data = ['shahin','sndeep','shammas']
-    #handles GET requests
         if request.method == 'GET':
             query = request.GET.get('query')
 
@@ -50,16 +48,17 @@ def advocate_list(request):
 class AdvocateDetails(APIView):
     def get_object(self, username):
         try:
-            return Advocate.objects.get(username=username)
+            return Advocate.objects.get(username__icontains=username)
         except Advocate.DoesNotExist:
             raise JsonResponse('Advocate doesent exist')
-
 
     def get(self, request, username):
         advocate = self.get_object(username)
         serializer = AdvocateSerializer(advocate, many=False)
         return Response(serializer.data)
-        
+
+
+
     def put(self, request, username):
         advocate = self.get_object(username)
         advocate.username = request.data['username']
@@ -71,6 +70,7 @@ class AdvocateDetails(APIView):
         advocate = self.get_object(username)
         advocate.delete()
         return Response('user was deleted')
+
 
 
 @api_view(['GET'])
